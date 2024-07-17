@@ -6,7 +6,7 @@
 
 @layer base {
   * {
-    @apply m-0 box-border p-0 font-lexend font-light;
+    @apply m-0 box-border p-0 font-lexend;
   }
 
   /* Customize scroll bar */

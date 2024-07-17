@@ -13,13 +13,18 @@
     "prettier:fix": "prettier --write \"src/**/(*.tsx|*.ts|*.css|*.scss)\""
   },
   "dependencies": {
+    "@ant-design/icons": "^5.3.7",
     "@reduxjs/toolkit": "^2.2.6",
     "@tanstack/react-query": "^5.51.4",
     "@tanstack/react-query-devtools": "^5.51.4",
     "antd": "^5.19.2",
     "axios": "^1.7.2",
+    "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
+    "dotenv": "^16.4.5",
     "lodash": "^4.17.21",
+    "lucide-react": "^0.408.0",
+    "query-string": "^9.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-error-boundary": "^4.0.13",
@@ -28,6 +33,7 @@
     "react-router-dom": "^6.25.0",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^3.1.0",
+    "tailwind-merge": "^2.4.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
