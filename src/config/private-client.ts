@@ -1,19 +1,22 @@
 import axios from 'axios'
+import queryString from 'query-string'
+import { getState } from '~/store/store'
+import { BASE_URL } from '~/utils/config'
 
-const jiraAxios = axios.create({
-  baseURL: `${import.meta.env.VITE_CYBER_API}/api`
+const privateClient = axios.create({
+  baseURL: BASE_URL,
+  paramsSerializer: {
+    serialize: (params) => queryString.stringify(params)
+  }
 })
 
-jiraAxios.interceptors.request.use(
+privateClient.interceptors.request.use(
   (config) => {
     // Do something before request is sent
-    // const accessToken = getState().Auth?.data.accessToken
-
-    const accessToken =
-      'eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJkaW5vc2F1ckBnbWFpbC5jb20iLCJuYmYiOjE3MjEyMzIxMTgsImV4cCI6MTcyMTIzNTcxOH0.pPgBNHYbgDlYoX2vR8wPnL0tgt0_gKcHmsGUJQ36vok'
+    const accessToken = getState().auth?.data?.accessToken
 
     if (accessToken) {
-      config.headers.TokenCybersoft = `Bearer ${accessToken}`
+      config.headers.Authorization = `Bearer ${accessToken}`
     }
 
     return config
@@ -23,4 +26,4 @@ jiraAxios.interceptors.request.use(
   }
 )
 
-export default jiraAxios
+export default privateClient

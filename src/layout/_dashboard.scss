@@ -1,0 +1,16 @@
+.content {
+  margin-left: 294px;
+  padding: 30px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  & > div {
+    width: 100%;
+  }
+  @media (max-width: 1275px) {
+    margin-left: 200px;
+  }
+  @media (max-width: 1024px) {
+    margin-left: 80px;
+  }
+}

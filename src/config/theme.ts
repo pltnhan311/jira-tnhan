@@ -22,6 +22,10 @@ export const theme: ThemeConfig = {
     Button: {
       primaryShadow: 'none',
       boxShadowSecondary: 'none'
+    },
+    Table: {
+      headerBg: primaryColor,
+      headerColor: '#ffffff'
     }
   }
 }

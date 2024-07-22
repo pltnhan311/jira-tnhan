@@ -3,26 +3,34 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import AppProviders from '~/AppProviders'
 import ProtectedRoutes from '~/components/protected-route'
 import { AuthLayout } from '~/layout/auth-layout'
+import DashboardLayout from '~/layout/dashboard-layout'
 
 const LoginPage = lazy(() => import('./pages/login-page'))
+const DashboardPage = lazy(() => import('./pages/dashboard-page'))
+const CreateProjectPage = lazy(() => import('./pages/create-project-page'))
+const DetailProjectPage = lazy(() => import('./pages/detail-project-page.tsx'))
 
 const App = () => {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <ProtectedRoutes />,
+      element: (
+        <DashboardLayout>
+          <ProtectedRoutes />
+        </DashboardLayout>
+      ),
       children: [
         {
           path: '/',
-          element: <p>hello '/home'</p>
+          element: <DashboardPage />
         },
         {
-          path: '/page1',
-          element: <p>hello '/page1'</p>
+          path: '/create',
+          element: <CreateProjectPage />
         },
         {
-          path: '/page2',
-          element: <p>hello '/page2'</p>
+          path: '/board/:id',
+          element: <DetailProjectPage />
         }
       ]
     },
