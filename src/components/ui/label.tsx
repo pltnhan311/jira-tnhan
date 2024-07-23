@@ -10,5 +10,10 @@ type Props = {
 export default function Label(props: Props) {
   const { className, ...rest } = props
 
-  return <Typography.Text className={cn('font-medium', className)} {...rest} />
+  return (
+    <Typography.Text
+      className={cn('!tracking-tight !font-medium !text-[12px] !text-gray-500 uppercase', className)}
+      {...rest}
+    />
+  )
 }

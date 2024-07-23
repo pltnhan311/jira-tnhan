@@ -10,7 +10,7 @@ import { IProject } from '~/utils/types'
 import { isEmpty } from 'lodash'
 import { useUpdateProject } from '~/components/modules/projects/hooks/use-update-project'
 
-const CreateProjectPage = () => {
+const CreateProjectPage = ({ onClose }: { onClose?: () => void }) => {
   const editorRef = useRef(null)
   const navigate = useNavigate()
 
@@ -19,7 +19,7 @@ const CreateProjectPage = () => {
 
   const projectId = searchParams.get('id')
 
-  const { data: project, isPending: isLoading } = useProject()
+  const { data: project } = useProject()
   const { data: categories } = useCategories()
 
   const { mutate: createProject } = useCreateProject()
@@ -72,7 +72,6 @@ const CreateProjectPage = () => {
         {projectId ? 'Update ' : 'Create '} Project
       </Typography.Title>
       <Form
-        disabled={isLoading}
         layout='vertical'
         size='middle'
         form={form}
@@ -109,8 +108,13 @@ const CreateProjectPage = () => {
           />
         </Form.Item>
 
-        <div className='mt-10 flex justify-end'>
-          <Button disabled={isLoading} htmlType='submit' type='primary' className='px-4 py-5'>
+        <div className='mt-10 flex justify-end gap-3'>
+          {projectId && (
+            <Button htmlType='button' type='default' className='p-4' onClick={onClose}>
+              Cancel
+            </Button>
+          )}
+          <Button htmlType='submit' type='primary' className='px-3 py-4'>
             {projectId ? 'Save changes' : 'Create Project'}
           </Button>
         </div>

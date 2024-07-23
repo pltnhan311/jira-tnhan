@@ -42,20 +42,21 @@ export interface IListTask {
 }
 
 export interface ITaskDeTail {
+  projectId: string
+  taskName: string
+  originalEstimate: number
+  timeTrackingRemaining: number
+  timeTrackingSpent: number
+  statusId: number
+  priorityId: number
+  typeId: number
   priorityTask: Partial<IPriority>
   taskTypeDetail: Partial<ITaskType>
   assigness: IAssignee[]
   taskId: number
-  taskName: string
   alias: string
   description: string
-  statusId: string
-  originalEstimate: number
-  timeTrackingSpent: number
-  timeTrackingRemaining: number
-  typeId: number
-  priorityId: number
-  projectId: number
+  listUserAsign: number[]
 }
 
 export interface ICategory {

@@ -11,8 +11,8 @@ type IProps = {
 const EditDrawer = ({ onClose, open, isProject }: IProps) => {
   return (
     <>
-      <Drawer width={isProject ? 500 : 600} onClose={onClose} open={open}>
-        {isProject ? <CreateProjectPage /> : <CreateTaskPage />}
+      <Drawer width={isProject ? 600 : 1000} onClose={onClose} open={open}>
+        {isProject ? <CreateProjectPage onClose={onClose} /> : <CreateTaskPage onClose={onClose} />}
       </Drawer>
     </>
   )

@@ -1,6 +1,6 @@
 import { isEmpty } from 'lodash'
 import privateClient from '~/config/private-client'
-import { ICategory, IUser } from '~/utils/types'
+import { ICategory, IPriority, IStatus, ITaskType, IUser } from '~/utils/types'
 
 const optionApi = {
   async getAllProjectCategories() {
@@ -9,15 +9,18 @@ const optionApi = {
   },
 
   async getAllTaskTypes() {
-    return await privateClient.get('/TaskType/getAll')
+    const { data } = await privateClient.get<{ content: ITaskType[] }>('/TaskType/getAll')
+    return data.content
   },
 
   async getAllTaskPriorities() {
-    return await privateClient.get('/Priority/getAll')
+    const { data } = await privateClient.get<{ content: IPriority[] }>('/Priority/getAll')
+    return data.content
   },
 
   async getAllTaskStatuses() {
-    return await privateClient.get('/Status/getAll')
+    const { data } = await privateClient.get<{ content: IStatus[] }>('/Status/getAll')
+    return data.content
   },
 
   async getUser(keyword: string) {

@@ -21,7 +21,7 @@ function EditorMCE({ description, editorRef }: IProps) {
         value={content}
         init={{
           menubar: false,
-          height: 250,
+          height: 400,
           toolbar:
             'undo redo | formatselect | ' +
             'bold italic backcolor | alignleft aligncenter ' +
