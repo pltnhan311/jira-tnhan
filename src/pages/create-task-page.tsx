@@ -16,6 +16,7 @@ import { TrashIcon } from 'lucide-react'
 import { useDeleteTask } from '~/components/modules/tasks/hooks/use-delete-task'
 import { useProjectParams } from '~/components/modules/projects/hooks/use-project_params'
 import Label from '~/components/ui/label'
+import CommentTask from '~/components/ui/comment/comment-task'
 
 type IProps = {
   taskId?: number
@@ -156,6 +157,11 @@ const CreateTaskPage = ({ taskId, onClose }: IProps) => {
             <Form.Item label={<Label>Description</Label>} name='description'>
               <EditorMCE editorRef={editorRef} description={descriptionValue} />
             </Form.Item>
+
+            <div className='mt-4 flex flex-col gap-4'>
+              <Label className='!text-gray-700 !font-bold'>Comments</Label>
+              <CommentTask />
+            </div>
           </div>
 
           <div className='sticky top-2 hidden w-[360px] shrink-0 flex-col py-3 lg:flex'>

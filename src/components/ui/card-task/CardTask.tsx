@@ -4,6 +4,7 @@ import { ArrowDown, ArrowUp, BugIcon, CheckSquare2 } from 'lucide-react'
 import { ITaskDeTail } from '~/utils/types'
 import CreateTaskPage from '~/pages/create-task-page'
 import { priorityMappings } from '~/utils/config'
+import { useSearchParams } from 'react-router-dom'
 
 type Props = {
   task: ITaskDeTail
@@ -12,6 +13,7 @@ type Props = {
 const CardTask = ({ task }: Props) => {
   const { assigness, priorityTask, taskName, taskId, taskTypeDetail } = task
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [, setSearchParams] = useSearchParams()
 
   const renderAvatar = () => {
     return assigness?.map((member, index) => {
@@ -21,10 +23,12 @@ const CardTask = ({ task }: Props) => {
 
   const showModal = () => {
     setIsModalVisible(true)
+    setSearchParams({ taskId: taskId.toString() })
   }
 
   const handleCancel = () => {
     setIsModalVisible(false)
+    setSearchParams({})
   }
 
   // @ts-expect-error color

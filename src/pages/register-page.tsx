@@ -4,17 +4,18 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '~/components/ui/button'
 import Label from '~/components/ui/label'
-import { loginAction } from '~/store/auth/action'
+import { registerAction } from '~/store/auth/action'
 import { useAppDispatch } from '~/store/store'
 
 type AuthType = {
   email: string
   passWord: string
+  name: string
 }
 
 type FormType = FormProps<AuthType>
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -24,12 +25,10 @@ const LoginPage = () => {
   const onFinish: FormType['onFinish'] = async (value) => {
     try {
       setIsSubmitting(true)
-      await dispatch(loginAction(value))
-      navigate('/')
+      await dispatch(registerAction(value))
+      navigate('/login')
     } catch (error) {
-      console.log("🚀 ~ file: sign-in.tsx:25 ~ constonFinish:FormType['onFinish']= ~ error:", {
-        error
-      })
+      console.log(error)
     } finally {
       setIsSubmitting(false)
     }
@@ -52,19 +51,21 @@ const LoginPage = () => {
           <Form.Item
             label={<Label>Email</Label>}
             name='email'
-            rules={[{ required: true, message: 'Vui lòng nhập tài khoản' }]}
+            rules={[{ required: true, message: 'Please enter email' }]}
           >
-            <Input placeholder='email...' prefix={<UserIcon className='h-4 w-4 text-gray-500' />} size='large' />
+            <Input placeholder='email...' prefix={<UserIcon className='h-4 w-4 text-gray-500 ' />} size='large' />
           </Form.Item>
           <Form.Item
-            label={<Label>Mật khẩu</Label>}
+            label={<Label>Username</Label>}
+            name='name'
+            rules={[{ required: true, message: 'Please enter username' }]}
+          >
+            <Input placeholder='username...' prefix={<UserIcon className='h-4 w-4 text-gray-500' />} size='large' />
+          </Form.Item>
+          <Form.Item
+            label={<Label>Password</Label>}
             name='passWord'
-            rules={[
-              {
-                required: true,
-                message: 'Vui lòng nhập mật khẩu'
-              }
-            ]}
+            rules={[{ required: true, message: 'Please enter password' }]}
           >
             <Input.Password
               placeholder='password...'
@@ -74,13 +75,13 @@ const LoginPage = () => {
           </Form.Item>
 
           <Button disabled={isSubmitting} size='large' htmlType='submit' type='primary' className='w-full'>
-            Login
+            Register
           </Button>
         </Form>
 
         <div className='footer mt-5'>
           <Typography.Text className='!text-gray-500'>
-            Don't have an account? <Link to='/register'>Register</Link>
+            Already have an account? <Link to='/login'>Login</Link>
           </Typography.Text>
         </div>
       </Card>
@@ -88,4 +89,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+export default RegisterPage

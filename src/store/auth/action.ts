@@ -15,3 +15,20 @@ export const loginAction = createAsyncThunk('auth/login', async (payload: { emai
     toast.error(message)
   }
 })
+
+export const registerAction = createAsyncThunk(
+  'auth/register',
+  async (payload: { email: string; passWord: string; name: string }) => {
+    try {
+      const { content, message, statusCode } = await authApi.register(payload)
+      if (statusCode === 200) {
+        toast.success(message)
+        return content
+      }
+      return content
+    } catch (error) {
+      const message = (error as Error).message
+      toast.error(message)
+    }
+  }
+)

@@ -4,6 +4,7 @@ import AppProviders from '~/AppProviders'
 import ProtectedRoutes from '~/components/protected-route'
 import { AuthLayout } from '~/layout/auth-layout'
 import DashboardLayout from '~/layout/dashboard-layout'
+import RegisterPage from '~/pages/register-page.tsx'
 
 const LoginPage = lazy(() => import('./pages/login-page'))
 const DashboardPage = lazy(() => import('./pages/dashboard-page'))
@@ -39,6 +40,14 @@ const App = () => {
       element: (
         <AuthLayout>
           <LoginPage />
+        </AuthLayout>
+      )
+    },
+    {
+      path: '/register',
+      element: (
+        <AuthLayout>
+          <RegisterPage />
         </AuthLayout>
       )
     }

@@ -19,6 +19,10 @@ export interface LoginResponse {
 const authApi = {
   login: (user: { email: string; passWord: string }): Promise<LoginResponse> => {
     return publicClient.post('/Users/signin', user)
+  },
+
+  register: (user: { email: string; passWord: string; name: string }): Promise<LoginResponse> => {
+    return publicClient.post('/Users/signup', user)
   }
 }
 

@@ -1,4 +1,4 @@
-import { Form, Input, Select, Typography } from 'antd'
+import { Form, Input, Select } from 'antd'
 import { useEffect, useRef } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useCategories } from '~/components/modules/projects/hooks/use-categories'
@@ -9,6 +9,7 @@ import EditorMCE from '~/components/ui/editor-mce/EditorMCE'
 import { IProject } from '~/utils/types'
 import { isEmpty } from 'lodash'
 import { useUpdateProject } from '~/components/modules/projects/hooks/use-update-project'
+import Label from '~/components/ui/label'
 
 const CreateProjectPage = ({ onClose }: { onClose?: () => void }) => {
   const editorRef = useRef(null)
@@ -52,10 +53,17 @@ const CreateProjectPage = ({ onClose }: { onClose?: () => void }) => {
     }
 
     if (projectId) {
-      updateProject({
-        ...formData,
-        id: parseInt(projectId)
-      })
+      updateProject(
+        {
+          ...formData,
+          id: parseInt(projectId)
+        },
+        {
+          onSuccess: () => {
+            if (onClose) onClose()
+          }
+        }
+      )
     } else {
       createProject(formData, {
         onSuccess: () => {
@@ -68,39 +76,33 @@ const CreateProjectPage = ({ onClose }: { onClose?: () => void }) => {
 
   return (
     <>
-      <Typography.Title level={3} className='!font-bold'>
-        {projectId ? 'Update ' : 'Create '} Project
-      </Typography.Title>
-      <Form
-        layout='vertical'
-        size='middle'
-        form={form}
-        onFinish={onFinish}
-        style={{ maxWidth: '600px', marginTop: '20px' }}
-      >
-        <Form.Item
-          label='Project name'
-          name='projectName'
-          rules={[{ required: true, message: 'Project name is required' }]}
-        >
-          <Input placeholder='Enter project name...' />
-        </Form.Item>
-        <Form.Item
-          label='Description'
-          name='description'
-          // rules={[{ required: true, message: 'Description is required' }]}
-        >
+      <Form layout='vertical' size='middle' form={form} onFinish={onFinish} style={{ maxWidth: '600px' }}>
+        <div className='flex items-center gap-4'>
+          <Form.Item label={<Label>Project Id</Label>} className='w-1/3'>
+            <Input disabled defaultValue={projectId as string} />
+          </Form.Item>
+          <Form.Item
+            label={<Label>Project name</Label>}
+            className='w-2/3'
+            name='projectName'
+            rules={[{ required: true, message: 'Project name is required' }]}
+          >
+            <Input variant='filled' placeholder='Enter project name...' />
+          </Form.Item>
+        </div>
+        <Form.Item label={<Label>Description</Label>} name='description'>
           <EditorMCE editorRef={editorRef} description={descriptionValue} />
         </Form.Item>
 
         <Form.Item
-          label='Project Category'
+          label={<Label>Project Category</Label>}
           name='categoryId'
           rules={[{ required: true, message: 'Category is required' }]}
+          initialValue={1}
         >
           <Select
+            variant='filled'
             allowClear
-            defaultValue={1}
             options={categories?.map((item) => ({
               value: item.id,
               label: item.projectCategoryName

@@ -57,6 +57,23 @@ export interface ITaskDeTail {
   alias: string
   description: string
   listUserAsign: number[]
+  lstComment: ILstComment[]
+}
+
+export interface ILstComment {
+  id: number
+  idUser: number
+  name: string
+  avatar: string
+  commentContent: string
+}
+
+export interface IAllCommentTask {
+  id: number
+  userId: number
+  taskId: number
+  contentComment: string
+  user: Partial<IUser>
 }
 
 export interface ICategory {
